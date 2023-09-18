@@ -1,0 +1,23 @@
+setting dmc scratch directory
+ 
+============================================================
+=====         Summary of your script job               =====
+============================================================
+  The script file is: mz_hello.sh
+  The time limit is 00:00:05 HH:MM:SS.
+  The target directory is: /home/usaclsc0052/mzWork/Conc-Work
+  The working directory is:  /scratch-local/usaclsc0052.mzhelloshSCRIPT.1823899
+  The memory limit is: 5mb
+  The job will start running after: 2023-09-18T15:20:00
+  Job Name: mzhelloshSCRIPT
+  Virtual queue: small
+  QOS: --qos=small
+  Constraints: --constraint=dmc
+  Using  1  cores on master node  dmc46
+  Node list:  dmc46
+  Nodes:  dmc46
+  Command typed:
+/apps/scripts/run_script mz_hello.sh     
+  Queue submit command:
+sbatch --qos=small -J mzhelloshSCRIPT --begin=2023-09-18T15:20:00 --requeue --mail-user=mvz2021@jagmail.southalabama.edu -o mzhelloshSCRIPT.o1823899 -t 00:00:05 -N 1-1 -n 1 --mem-per-cpu=30mb --constraint=dmc 
+Hello, World!
