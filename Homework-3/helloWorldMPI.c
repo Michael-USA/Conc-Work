@@ -1,3 +1,4 @@
+// Michael Zuppardo
 #include <stdio.h>
 #include <string.h> /* For strlen */
 #include <mpi.h> /* For MPI functions, etc */
