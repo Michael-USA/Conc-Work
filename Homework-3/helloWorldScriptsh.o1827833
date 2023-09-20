@@ -1,0 +1,27 @@
+setting dmc scratch directory
+ 
+============================================================
+=====         Summary of your script job               =====
+============================================================
+  The script file is: helloWorldScript.sh
+  The time limit is 60:00:00 HH:MM:SS.
+  The target directory is: /home/usaclsc0052/mzWork/Conc-Work/Homework-3
+  The working directory is:  /scratch-local/usaclsc0052.helloWorldScriptsh.1827833
+  The memory limit is: 4gb
+  The job will start running after: 2023-09-20T15:21:41
+  Job Name: helloWorldScriptsh
+  Virtual queue: small
+  QOS: --qos=small
+  Constraints: --constraint=dmc
+  Using  4  cores on master node  dmc52
+  Node list:  dmc52
+  Nodes:  dmc52 dmc52 dmc52 dmc52
+  Command typed:
+/apps/scripts/run_script_mpi helloWorldScript.sh     
+  Queue submit command:
+sbatch --qos=small -J helloWorldScriptsh --begin=2023-09-20T15:21:41 --requeue --mail-user=mvz2021@jagmail.southalabama.edu -o helloWorldScriptsh.o1827833 -t 60:00:00 -n 4 --mem-per-cpu=1000mb --constraint=dmc 
+ 
+Greetings from process 0 of 4!
+Greetings from process 1 of 4!
+Greetings from process 2 of 4!
+Greetings from process 3 of 4!
