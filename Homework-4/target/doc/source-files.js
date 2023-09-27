@@ -1,0 +1,26 @@
+var sourcesIndex = JSON.parse('{\
+"Homework_4":["",[],["main.rs"]],\
+"cfg_if":["",[],["lib.rs"]],\
+"conv":["",[],["errors.rs","impls.rs","lib.rs","macros.rs","misc.rs"]],\
+"custom_derive":["",[],["lib.rs"]],\
+"getrandom":["",[],["error.rs","error_impls.rs","lib.rs","linux_android.rs","use_file.rs","util.rs","util_libc.rs"]],\
+"libc":["",[["unix",[["linux_like",[["linux",[["arch",[["generic",[],["mod.rs"]]],["mod.rs"]],["gnu",[["b64",[["x86_64",[],["align.rs","mod.rs","not_x32.rs"]]],["mod.rs"]]],["align.rs","mod.rs"]]],["align.rs","mod.rs","non_exhaustive.rs"]]],["mod.rs"]]],["align.rs","mod.rs"]]],["fixed_width_ints.rs","lib.rs","macros.rs"]],\
+"libffi":["",[["high",[],["call.rs","mod.rs","types.rs"]],["middle",[],["builder.rs","mod.rs","types.rs","util.rs"]]],["lib.rs","low.rs"]],\
+"libffi_sys":["",[],["arch.rs","lib.rs"]],\
+"memoffset":["",[],["lib.rs","offset_of.rs","raw_field.rs","span_of.rs"]],\
+"mpi":["",[["topology",[],["cartesian.rs","mod.rs"]]],["collective.rs","datatype.rs","environment.rs","lib.rs","point_to_point.rs","raw.rs","request.rs"]],\
+"mpi_sys":["",[],["lib.rs"]],\
+"once_cell":["",[],["imp_std.rs","lib.rs","race.rs"]],\
+"ppv_lite86":["",[["x86_64",[],["mod.rs","sse2.rs"]]],["lib.rs","soft.rs","types.rs"]],\
+"proc_macro2":["",[],["detection.rs","extra.rs","fallback.rs","lib.rs","marker.rs","parse.rs","rcvec.rs","wrapper.rs"]],\
+"quote":["",[],["ext.rs","format.rs","ident_fragment.rs","lib.rs","runtime.rs","spanned.rs","to_tokens.rs"]],\
+"rand":["",[["distributions",[],["bernoulli.rs","distribution.rs","float.rs","integer.rs","mod.rs","other.rs","slice.rs","uniform.rs","utils.rs","weighted.rs","weighted_index.rs"]],["rngs",[["adapter",[],["mod.rs","read.rs","reseeding.rs"]]],["mock.rs","mod.rs","std.rs","thread.rs"]],["seq",[],["index.rs","mod.rs"]]],["lib.rs","prelude.rs","rng.rs"]],\
+"rand_chacha":["",[],["chacha.rs","guts.rs","lib.rs"]],\
+"rand_core":["",[],["block.rs","error.rs","impls.rs","le.rs","lib.rs","os.rs"]],\
+"smallvec":["",[],["lib.rs"]],\
+"syn":["",[["gen",[],["clone.rs","debug.rs","eq.rs","hash.rs","visit_mut.rs"]]],["attr.rs","bigint.rs","buffer.rs","custom_keyword.rs","custom_punctuation.rs","data.rs","derive.rs","discouraged.rs","drops.rs","error.rs","export.rs","expr.rs","ext.rs","file.rs","gen_helper.rs","generics.rs","group.rs","ident.rs","item.rs","lib.rs","lifetime.rs","lit.rs","lookahead.rs","mac.rs","macros.rs","meta.rs","op.rs","parse.rs","parse_macro_input.rs","parse_quote.rs","pat.rs","path.rs","print.rs","punctuated.rs","restriction.rs","sealed.rs","span.rs","spanned.rs","stmt.rs","thread.rs","token.rs","tt.rs","ty.rs","verbatim.rs","whitespace.rs"]],\
+"thiserror":["",[],["aserror.rs","display.rs","lib.rs"]],\
+"thiserror_impl":["",[],["ast.rs","attr.rs","expand.rs","fmt.rs","generics.rs","lib.rs","prop.rs","valid.rs"]],\
+"unicode_ident":["",[],["lib.rs","tables.rs"]]\
+}');
+createSourceSidebar();

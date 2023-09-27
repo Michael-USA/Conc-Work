@@ -1,0 +1,16 @@
+mv: cannot move '../config.log' to './config.log': Device or resource busy
+../src/java_raw_api.c: In function 'ffi_java_raw_call':
+../src/java_raw_api.c:317:3: warning: 'ffi_java_raw_to_ptrarray' is deprecated (declared at ../src/java_raw_api.c:76) [-Wdeprecated-declarations]
+   ffi_java_raw_to_ptrarray (cif, raw, avalue);
+   ^
+../src/java_raw_api.c: In function 'ffi_java_translate_args':
+../src/java_raw_api.c:328:3: warning: 'ffi_java_raw_size' is deprecated (declared at ../src/java_raw_api.c:45) [-Wdeprecated-declarations]
+   ffi_java_raw *raw = (ffi_java_raw*)alloca (ffi_java_raw_size (cif));
+   ^
+../src/java_raw_api.c:331:3: warning: 'ffi_java_ptrarray_to_raw' is deprecated (declared at ../src/java_raw_api.c:157) [-Wdeprecated-declarations]
+   ffi_java_ptrarray_to_raw (cif, avalue, raw);
+   ^
+../src/java_raw_api.c: In function 'ffi_prep_java_raw_closure':
+../src/java_raw_api.c:369:3: warning: 'ffi_prep_java_raw_closure_loc' is deprecated (declared at ../src/java_raw_api.c:337) [-Wdeprecated-declarations]
+   return ffi_prep_java_raw_closure_loc (cl, cif, fun, user_data, cl);
+   ^

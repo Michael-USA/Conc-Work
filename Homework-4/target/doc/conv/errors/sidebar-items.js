@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FloatError","GeneralError","GeneralErrorKind","NoError","RangeError","RangeErrorKind"],"struct":["NegOverflow","PosOverflow","Unrepresentable"],"trait":["Saturate","UnwrapOk","UnwrapOrInf","UnwrapOrInvalid","UnwrapOrSaturate"]};

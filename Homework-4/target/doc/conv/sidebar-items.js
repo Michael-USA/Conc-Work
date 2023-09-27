@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DefaultApprox","RoundToNearest","RoundToNegInf","RoundToPosInf","RoundToZero","Wrapping"],"macro":["TryFrom"],"mod":["errors","macros","misc","prelude"],"trait":["ApproxFrom","ApproxInto","ApproxScheme","ConvAsUtil","ConvUtil","TryFrom","TryInto","ValueFrom","ValueInto"]};

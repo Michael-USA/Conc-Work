@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Message Passing Interface bindings for Rust"><title>mpi - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="mpi" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.1 (d5c2e9c34 2023-09-13)" data-channel="1.72.1" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../mpi/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../mpi/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Crate mpi</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.6.0</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">mpi</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/mpi/lib.rs.html#1-233">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Message Passing Interface bindings for Rust</p>
+<p>The <a href="http://www.mpi-forum.org">Message Passing Interface</a> (MPI) is a specification for a
+message-passing style concurrency library. Implementations of MPI are often used to structure
+parallel computation on High Performance Computing systems. The MPI specification describes
+bindings for the C programming language (and through it C++) as well as for the Fortran
+programming language. This library tries to bridge the gap into a more rustic world.</p>
+<h2 id="usage"><a href="#usage">Usage</a></h2>
+<p>Add the <code>mpi</code> crate as a dependency in your <code>Cargo.toml</code>:</p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+mpi = &quot;0.6&quot;
+</code></pre></div>
+<p>Then use it in your program like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">extern crate </span>mpi;
+
+<span class="kw">use </span>mpi::traits::<span class="kw-2">*</span>;
+
+<span class="kw">fn </span>main() {
+    <span class="kw">let </span>universe = mpi::initialize().unwrap();
+    <span class="kw">let </span>world = universe.world();
+    <span class="kw">let </span>size = world.size();
+    <span class="kw">let </span>rank = world.rank();
+
+    <span class="kw">if </span>size != <span class="number">2 </span>{
+        <span class="macro">panic!</span>(<span class="string">&quot;Size of MPI_COMM_WORLD must be 2, but is {}!&quot;</span>, size);
+     }
+
+    <span class="kw">match </span>rank {
+        <span class="number">0 </span>=&gt; {
+            <span class="kw">let </span>msg = <span class="macro">vec!</span>[<span class="number">4.0f64</span>, <span class="number">8.0</span>, <span class="number">15.0</span>];
+            world.process_at_rank(rank + <span class="number">1</span>).send(<span class="kw-2">&amp;</span>msg[..]);
+        }
+        <span class="number">1 </span>=&gt; {
+            <span class="kw">let </span>(msg, status) = world.any_process().receive_vec::&lt;f64&gt;();
+            <span class="macro">println!</span>(<span class="string">&quot;Process {} got message {:?}.\nStatus is: {:?}&quot;</span>, rank, msg, status);
+        }
+        <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>()
+    }
+}</code></pre></div>
+<h2 id="features"><a href="#features">Features</a></h2>
+<p>The bindings follow the MPI 3.1 specification.</p>
+<p>Currently supported:</p>
+<ul>
+<li><strong>Groups, Contexts, Communicators</strong>:
+<ul>
+<li>Group and (Intra-)Communicator management from section 6 is mostly complete.</li>
+<li>no Inter-Communicators</li>
+<li>no process topologies</li>
+</ul>
+</li>
+<li><strong>Point to point communication</strong>:
+<ul>
+<li>standard, buffered, synchronous and ready mode send in blocking and non-blocking variants</li>
+<li>receive in blocking and non-blocking variants</li>
+<li>send-receive</li>
+<li>probe</li>
+<li>matched probe/receive</li>
+</ul>
+</li>
+<li><strong>Collective communication</strong>:
+<ul>
+<li>barrier</li>
+<li>broadcast</li>
+<li>(all) gather</li>
+<li>scatter</li>
+<li>all to all</li>
+<li>varying counts operations</li>
+<li>reductions/scans</li>
+<li>blocking and non-blocking variants</li>
+</ul>
+</li>
+<li><strong>Datatypes</strong>: Bridging between Rust types and MPI basic types as well as custom MPI datatypes
+which can act as views into buffers.</li>
+</ul>
+<p>Not supported (yet):</p>
+<ul>
+<li>Process management</li>
+<li>One-sided communication (RMA)</li>
+<li>MPI parallel I/O</li>
+<li>A million small things</li>
+</ul>
+<p>The sub-modules contain a more detailed description of which features are and are not
+supported.</p>
+<h2 id="further-reading"><a href="#further-reading">Further Reading</a></h2>
+<p>While every publicly defined item in this crate should have some documentation attached to it,
+most of the descriptions are quite terse for now and to the uninitiated will only make sense in
+combination with the <a href="http://www.mpi-forum.org/docs/docs.html">MPI specification</a>.</p>
+</div></details><h2 id="reexports" class="small-section-header"><a href="#reexports">Re-exports</a></h2><ul class="item-table"><li><div class="item-name" id="reexport.Rank"><code>pub use crate::topology::<a class="type" href="topology/type.Rank.html" title="type mpi::topology::Rank">Rank</a>;</code></div></li></ul><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="collective/index.html" title="mod mpi::collective">collective</a></div><div class="desc docblock-short">Collective communication</div></li><li><div class="item-name"><a class="mod" href="datatype/index.html" title="mod mpi::datatype">datatype</a></div><div class="desc docblock-short">The core function of MPI is getting data from point A to point B (where A and B are e.g. single
+processes, multiple processes, the filesystem, …). It offers facilities to describe that data
+(layout in memory, behavior under certain operators) that go beyound a start address and a
+number of bytes.</div></li><li><div class="item-name"><a class="mod" href="environment/index.html" title="mod mpi::environment">environment</a></div><div class="desc docblock-short">Environmental management</div></li><li><div class="item-name"><a class="mod" href="ffi/index.html" title="mod mpi::ffi">ffi</a></div><div class="desc docblock-short">The raw C language MPI API</div></li><li><div class="item-name"><a class="mod" href="point_to_point/index.html" title="mod mpi::point_to_point">point_to_point</a></div><div class="desc docblock-short">Point to point communication</div></li><li><div class="item-name"><a class="mod" href="raw/index.html" title="mod mpi::raw">raw</a></div><div class="desc docblock-short">Bridge between rust types and raw values</div></li><li><div class="item-name"><a class="mod" href="request/index.html" title="mod mpi::request">request</a></div><div class="desc docblock-short">Request objects for non-blocking operations</div></li><li><div class="item-name"><a class="mod" href="topology/index.html" title="mod mpi::topology">topology</a></div><div class="desc docblock-short">Organizing processes as groups and communicators</div></li><li><div class="item-name"><a class="mod" href="traits/index.html" title="mod mpi::traits">traits</a></div><div class="desc docblock-short">Re-exports all traits.</div></li></ul><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.MpiError.html" title="enum mpi::MpiError">MpiError</a></div><div class="desc docblock-short">Errors</div></li><li><div class="item-name"><a class="enum" href="enum.Threading.html" title="enum mpi::Threading">Threading</a></div><div class="desc docblock-short">Describes the various levels of multithreading that can be supported by an MPI library.</div></li></ul><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.initialize.html" title="fn mpi::initialize">initialize</a></div><div class="desc docblock-short">Initialize MPI.</div></li><li><div class="item-name"><a class="fn" href="fn.initialize_with_threading.html" title="fn mpi::initialize_with_threading">initialize_with_threading</a></div><div class="desc docblock-short">Initialize MPI with desired level of multithreading support.</div></li><li><div class="item-name"><a class="fn" href="fn.time.html" title="fn mpi::time">time</a></div><div class="desc docblock-short">Time in seconds since an arbitrary time in the past.</div></li><li><div class="item-name"><a class="fn" href="fn.time_resolution.html" title="fn mpi::time_resolution">time_resolution</a></div><div class="desc docblock-short">Resolution of timer used in <code>time()</code> in seconds</div></li></ul><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><ul class="item-table"><li><div class="item-name"><a class="type" href="type.Address.html" title="type mpi::Address">Address</a></div><div class="desc docblock-short">An address in memory</div></li><li><div class="item-name"><a class="type" href="type.Count.html" title="type mpi::Count">Count</a></div><div class="desc docblock-short">Encodes number of values in multi-value messages.</div></li><li><div class="item-name"><a class="type" href="type.Error.html" title="type mpi::Error">Error</a></div><div class="desc docblock-short">Encodes error values returned by MPI functions.</div></li><li><div class="item-name"><a class="type" href="type.Tag.html" title="type mpi::Tag">Tag</a></div><div class="desc docblock-short">Can be used to tag messages on the sender side and match on the receiver side.</div></li></ul></section></div></main></body></html>

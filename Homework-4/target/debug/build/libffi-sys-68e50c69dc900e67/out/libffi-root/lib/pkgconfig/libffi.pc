@@ -1,0 +1,11 @@
+prefix=/mnt/beegfs/home/usaclsc0052/mzWork/Conc-Work/Homework-4/target/debug/build/libffi-sys-68e50c69dc900e67/out/libffi-root
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+toolexeclibdir=${libdir}/../lib64
+includedir=${prefix}/include
+
+Name: libffi
+Description: Library supporting Foreign Function Interfaces
+Version: 3.4.4
+Libs: -L${toolexeclibdir} -lffi
+Cflags: -I${includedir}

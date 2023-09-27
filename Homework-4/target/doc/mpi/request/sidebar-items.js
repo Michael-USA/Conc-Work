@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["multiple_scope","scope","wait_any"],"struct":["CancelGuard","LocalScope","Request","RequestCollection","StaticScope","WaitGuard"],"trait":["Scope"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Threading"],"fn":["initialize","initialize_with_threading","library_version","processor_name","threading_support","time","time_resolution","version"],"struct":["Universe"]};

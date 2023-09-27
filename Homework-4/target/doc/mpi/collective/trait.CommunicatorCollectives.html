@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Collective communication patterns defined on `Communicator`s"><title>CommunicatorCollectives in mpi::collective - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="mpi" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.1 (d5c2e9c34 2023-09-13)" data-channel="1.72.1" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../mpi/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../mpi/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">CommunicatorCollectives</a></h2><div class="sidebar-elems"><section><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.all_gather_into">all_gather_into</a></li><li><a href="#method.all_gather_varcount_into">all_gather_varcount_into</a></li><li><a href="#method.all_reduce_into">all_reduce_into</a></li><li><a href="#method.all_to_all_into">all_to_all_into</a></li><li><a href="#method.all_to_all_varcount_into">all_to_all_varcount_into</a></li><li><a href="#method.barrier">barrier</a></li><li><a href="#method.exclusive_scan_into">exclusive_scan_into</a></li><li><a href="#method.immediate_all_gather_into">immediate_all_gather_into</a></li><li><a href="#method.immediate_all_gather_varcount_into">immediate_all_gather_varcount_into</a></li><li><a href="#method.immediate_all_reduce_into">immediate_all_reduce_into</a></li><li><a href="#method.immediate_all_to_all_into">immediate_all_to_all_into</a></li><li><a href="#method.immediate_all_to_all_varcount_into">immediate_all_to_all_varcount_into</a></li><li><a href="#method.immediate_barrier">immediate_barrier</a></li><li><a href="#method.immediate_exclusive_scan_into">immediate_exclusive_scan_into</a></li><li><a href="#method.immediate_reduce_scatter_block_into">immediate_reduce_scatter_block_into</a></li><li><a href="#method.immediate_scan_into">immediate_scan_into</a></li><li><a href="#method.reduce_scatter_block_into">reduce_scatter_block_into</a></li><li><a href="#method.scan_into">scan_into</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In mpi::collective</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="../index.html">mpi</a>::<wbr><a href="index.html">collective</a>::<wbr><a class="trait" href="#">CommunicatorCollectives</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/mpi/collective.rs.html#43-668">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait CommunicatorCollectives: <a class="trait" href="../topology/trait.Communicator.html" title="trait mpi::topology::Communicator">Communicator</a> {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 18 methods</span></summary>    // Provided methods
+    fn <a href="#method.barrier" class="fn">barrier</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.all_gather_into" class="fn">all_gather_into</a>&lt;S, R&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>)
+       <span class="where">where S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.all_gather_varcount_into" class="fn">all_gather_varcount_into</a>&lt;S, R&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>)
+       <span class="where">where S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: <a class="trait" href="../datatype/trait.PartitionedBufferMut.html" title="trait mpi::datatype::PartitionedBufferMut">PartitionedBufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.all_to_all_into" class="fn">all_to_all_into</a>&lt;S, R&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>)
+       <span class="where">where S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.all_to_all_varcount_into" class="fn">all_to_all_varcount_into</a>&lt;S, R&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>)
+       <span class="where">where S: <a class="trait" href="../datatype/trait.PartitionedBuffer.html" title="trait mpi::datatype::PartitionedBuffer">PartitionedBuffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: <a class="trait" href="../datatype/trait.PartitionedBufferMut.html" title="trait mpi::datatype::PartitionedBufferMut">PartitionedBufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.all_reduce_into" class="fn">all_reduce_into</a>&lt;S, R, O&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>, op: O)
+       <span class="where">where S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.reduce_scatter_block_into" class="fn">reduce_scatter_block_into</a>&lt;S, R, O&gt;(
+        &amp;self,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>,
+        op: O
+    )
+       <span class="where">where S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.scan_into" class="fn">scan_into</a>&lt;S, R, O&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>, op: O)
+       <span class="where">where S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.exclusive_scan_into" class="fn">exclusive_scan_into</a>&lt;S, R, O&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>, op: O)
+       <span class="where">where S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_barrier" class="fn">immediate_barrier</a>(&amp;self) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'static, <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.unit.html">()</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_all_gather_into" class="fn">immediate_all_gather_into</a>&lt;'a, S, R, Sc&gt;(
+        &amp;self,
+        scope: Sc,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>
+    ) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;
+       <span class="where">where S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_all_gather_varcount_into" class="fn">immediate_all_gather_varcount_into</a>&lt;'a, S, R, Sc&gt;(
+        &amp;self,
+        scope: Sc,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>
+    ) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;
+       <span class="where">where S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: 'a + <a class="trait" href="../datatype/trait.PartitionedBufferMut.html" title="trait mpi::datatype::PartitionedBufferMut">PartitionedBufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_all_to_all_into" class="fn">immediate_all_to_all_into</a>&lt;'a, S, R, Sc&gt;(
+        &amp;self,
+        scope: Sc,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>
+    ) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;
+       <span class="where">where S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_all_to_all_varcount_into" class="fn">immediate_all_to_all_varcount_into</a>&lt;'a, S, R, Sc&gt;(
+        &amp;self,
+        scope: Sc,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>
+    ) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;
+       <span class="where">where S: 'a + <a class="trait" href="../datatype/trait.PartitionedBuffer.html" title="trait mpi::datatype::PartitionedBuffer">PartitionedBuffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: 'a + <a class="trait" href="../datatype/trait.PartitionedBufferMut.html" title="trait mpi::datatype::PartitionedBufferMut">PartitionedBufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_all_reduce_into" class="fn">immediate_all_reduce_into</a>&lt;'a, S, R, O, Sc&gt;(
+        &amp;self,
+        scope: Sc,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>,
+        op: O
+    ) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;
+       <span class="where">where S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: 'a + <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,
+             Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_reduce_scatter_block_into" class="fn">immediate_reduce_scatter_block_into</a>&lt;'a, S, R, O, Sc&gt;(
+        &amp;self,
+        scope: Sc,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>,
+        op: O
+    ) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;
+       <span class="where">where S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: 'a + <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,
+             Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_scan_into" class="fn">immediate_scan_into</a>&lt;'a, S, R, O, Sc&gt;(
+        &amp;self,
+        scope: Sc,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>,
+        op: O
+    ) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;
+       <span class="where">where S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: 'a + <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,
+             Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.immediate_exclusive_scan_into" class="fn">immediate_exclusive_scan_into</a>&lt;'a, S, R, O, Sc&gt;(
+        &amp;self,
+        scope: Sc,
+        sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+        recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>,
+        op: O
+    ) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;
+       <span class="where">where S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: 'a + <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,
+             Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;</span> { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Collective communication patterns defined on <code>Communicator</code>s</p>
+</div></details><h2 id="provided-methods" class="small-section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.barrier" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#58-62">source</a><h4 class="code-header">fn <a href="#method.barrier" class="fn">barrier</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Barrier synchronization among all processes in a <code>Communicator</code></p>
+<p>Partake in a barrier synchronization across all processes in the <code>Communicator</code> <code>&amp;self</code>.</p>
+<p>Calling processes (or threads within the calling processes) will enter the barrier and block
+execution until all processes in the <code>Communicator</code> <code>&amp;self</code> have entered the barrier.</p>
+<h5 id="examples"><a href="#examples">Examples</a></h5>
+<p>See <code>examples/barrier.rs</code></p>
+<h5 id="standard-sections"><a href="#standard-sections">Standard section(s)</a></h5>
+<p>5.3</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.all_gather_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#78-94">source</a><h4 class="code-header">fn <a href="#method.all_gather_into" class="fn">all_gather_into</a>&lt;S, R&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>)<span class="where fmt-newline">where
+    S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Gather contents of buffers on all participating processes.</p>
+<p>After the call completes, the contents of the send <code>Buffer</code>s on all processes will be
+concatenated into the receive <code>Buffer</code>s on all ranks.</p>
+<p>All send <code>Buffer</code>s must contain the same count of elements.</p>
+<h5 id="examples-1"><a href="#examples-1">Examples</a></h5>
+<p>See <code>examples/all_gather.rs</code></p>
+<h5 id="standard-sections-1"><a href="#standard-sections-1">Standard section(s)</a></h5>
+<p>5.7</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.all_gather_varcount_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#111-128">source</a><h4 class="code-header">fn <a href="#method.all_gather_varcount_into" class="fn">all_gather_varcount_into</a>&lt;S, R&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>)<span class="where fmt-newline">where
+    S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: <a class="trait" href="../datatype/trait.PartitionedBufferMut.html" title="trait mpi::datatype::PartitionedBufferMut">PartitionedBufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Gather contents of buffers on all participating processes.</p>
+<p>After the call completes, the contents of the send <code>Buffer</code>s on all processes will be
+concatenated into the receive <code>Buffer</code>s on all ranks.</p>
+<p>The send <code>Buffer</code>s may contain different counts of elements on different processes. The
+distribution of elements in the receive <code>Buffer</code>s is specified via <code>Partitioned</code>.</p>
+<h5 id="examples-2"><a href="#examples-2">Examples</a></h5>
+<p>See <code>examples/all_gather_varcount.rs</code></p>
+<h5 id="standard-sections-2"><a href="#standard-sections-2">Standard section(s)</a></h5>
+<p>5.7</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.all_to_all_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#141-158">source</a><h4 class="code-header">fn <a href="#method.all_to_all_into" class="fn">all_to_all_into</a>&lt;S, R&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>)<span class="where fmt-newline">where
+    S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Distribute the send <code>Buffer</code>s from all processes to the receive <code>Buffer</code>s on all processes.</p>
+<p>Each process sends and receives the same count of elements to and from each process.</p>
+<h5 id="examples-3"><a href="#examples-3">Examples</a></h5>
+<p>See <code>examples/all_to_all.rs</code></p>
+<h5 id="standard-sections-3"><a href="#standard-sections-3">Standard section(s)</a></h5>
+<p>5.8</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.all_to_all_varcount_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#168-186">source</a><h4 class="code-header">fn <a href="#method.all_to_all_varcount_into" class="fn">all_to_all_varcount_into</a>&lt;S, R&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>)<span class="where fmt-newline">where
+    S: <a class="trait" href="../datatype/trait.PartitionedBuffer.html" title="trait mpi::datatype::PartitionedBuffer">PartitionedBuffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: <a class="trait" href="../datatype/trait.PartitionedBufferMut.html" title="trait mpi::datatype::PartitionedBufferMut">PartitionedBufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Distribute the send <code>Buffer</code>s from all processes to the receive <code>Buffer</code>s on all processes.</p>
+<p>The count of elements to send and receive to and from each process can vary and is specified
+using <code>Partitioned</code>.</p>
+<h5 id="standard-sections-4"><a href="#standard-sections-4">Standard section(s)</a></h5>
+<p>5.8</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.all_reduce_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#198-214">source</a><h4 class="code-header">fn <a href="#method.all_reduce_into" class="fn">all_reduce_into</a>&lt;S, R, O&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>, op: O)<span class="where fmt-newline">where
+    S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,</span></h4></section></summary><div class="docblock"><p>Performs a global reduction under the operation <code>op</code> of the input data in <code>sendbuf</code> and
+stores the result in <code>recvbuf</code> on all processes.</p>
+<h5 id="examples-4"><a href="#examples-4">Examples</a></h5>
+<p>See <code>examples/reduce.rs</code></p>
+<h5 id="standard-sections-5"><a href="#standard-sections-5">Standard section(s)</a></h5>
+<p>5.9.6</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.reduce_scatter_block_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#227-248">source</a><h4 class="code-header">fn <a href="#method.reduce_scatter_block_into" class="fn">reduce_scatter_block_into</a>&lt;S, R, O&gt;(
+    &amp;self,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>,
+    op: O
+)<span class="where fmt-newline">where
+    S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,</span></h4></section></summary><div class="docblock"><p>Performs an element-wise global reduction under the operation <code>op</code> of the input data in
+<code>sendbuf</code> and scatters the result into equal sized blocks in the receive buffers on all
+processes.</p>
+<h5 id="examples-5"><a href="#examples-5">Examples</a></h5>
+<p>See <code>examples/reduce.rs</code></p>
+<h5 id="standard-sections-6"><a href="#standard-sections-6">Standard section(s)</a></h5>
+<p>5.10.1</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.scan_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#260-276">source</a><h4 class="code-header">fn <a href="#method.scan_into" class="fn">scan_into</a>&lt;S, R, O&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>, op: O)<span class="where fmt-newline">where
+    S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,</span></h4></section></summary><div class="docblock"><p>Performs a global inclusive prefix reduction of the data in <code>sendbuf</code> into <code>recvbuf</code> under
+operation <code>op</code>.</p>
+<h5 id="examples-6"><a href="#examples-6">Examples</a></h5>
+<p>See <code>examples/scan.rs</code></p>
+<h5 id="standard-sections-7"><a href="#standard-sections-7">Standard section(s)</a></h5>
+<p>5.11.1</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.exclusive_scan_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#288-304">source</a><h4 class="code-header">fn <a href="#method.exclusive_scan_into" class="fn">exclusive_scan_into</a>&lt;S, R, O&gt;(&amp;self, sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;S</a>, recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;mut R</a>, op: O)<span class="where fmt-newline">where
+    S: <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,</span></h4></section></summary><div class="docblock"><p>Performs a global exclusive prefix reduction of the data in <code>sendbuf</code> into <code>recvbuf</code> under
+operation <code>op</code>.</p>
+<h5 id="examples-7"><a href="#examples-7">Examples</a></h5>
+<p>See <code>examples/scan.rs</code></p>
+<h5 id="standard-sections-8"><a href="#standard-sections-8">Standard section(s)</a></h5>
+<p>5.11.2</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_barrier" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#318-326">source</a><h4 class="code-header">fn <a href="#method.immediate_barrier" class="fn">immediate_barrier</a>(&amp;self) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'static, <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.unit.html">()</a>&gt;</h4></section></summary><div class="docblock"><p>Non-blocking barrier synchronization among all processes in a <code>Communicator</code></p>
+<p>Calling processes (or threads within the calling processes) enter the barrier. Completion
+methods on the associated request object will block until all processes have entered.</p>
+<h5 id="examples-8"><a href="#examples-8">Examples</a></h5>
+<p>See <code>examples/immediate_barrier.rs</code></p>
+<h5 id="standard-sections-9"><a href="#standard-sections-9">Standard section(s)</a></h5>
+<p>5.12.1</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_all_gather_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#338-369">source</a><h4 class="code-header">fn <a href="#method.immediate_all_gather_into" class="fn">immediate_all_gather_into</a>&lt;'a, S, R, Sc&gt;(
+    &amp;self,
+    scope: Sc,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>
+) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;<span class="where fmt-newline">where
+    S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Initiate non-blocking gather of the contents of all <code>sendbuf</code>s into all <code>rcevbuf</code>s on all
+processes in the communicator.</p>
+<h5 id="examples-9"><a href="#examples-9">Examples</a></h5>
+<p>See <code>examples/immediate_all_gather.rs</code></p>
+<h5 id="standard-sections-10"><a href="#standard-sections-10">Standard section(s)</a></h5>
+<p>5.12.5</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_all_gather_varcount_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#381-412">source</a><h4 class="code-header">fn <a href="#method.immediate_all_gather_varcount_into" class="fn">immediate_all_gather_varcount_into</a>&lt;'a, S, R, Sc&gt;(
+    &amp;self,
+    scope: Sc,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>
+) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;<span class="where fmt-newline">where
+    S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: 'a + <a class="trait" href="../datatype/trait.PartitionedBufferMut.html" title="trait mpi::datatype::PartitionedBufferMut">PartitionedBufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Initiate non-blocking gather of the contents of all <code>sendbuf</code>s into all <code>rcevbuf</code>s on all
+processes in the communicator.</p>
+<h5 id="examples-10"><a href="#examples-10">Examples</a></h5>
+<p>See <code>examples/immediate_all_gather_varcount.rs</code></p>
+<h5 id="standard-sections-11"><a href="#standard-sections-11">Standard section(s)</a></h5>
+<p>5.12.5</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_all_to_all_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#423-454">source</a><h4 class="code-header">fn <a href="#method.immediate_all_to_all_into" class="fn">immediate_all_to_all_into</a>&lt;'a, S, R, Sc&gt;(
+    &amp;self,
+    scope: Sc,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>
+) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;<span class="where fmt-newline">where
+    S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Initiate non-blocking all-to-all communication.</p>
+<h5 id="examples-11"><a href="#examples-11">Examples</a></h5>
+<p>See <code>examples/immediate_all_to_all.rs</code></p>
+<h5 id="standard-sections-12"><a href="#standard-sections-12">Standard section(s)</a></h5>
+<p>5.12.6</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_all_to_all_varcount_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#461-493">source</a><h4 class="code-header">fn <a href="#method.immediate_all_to_all_varcount_into" class="fn">immediate_all_to_all_varcount_into</a>&lt;'a, S, R, Sc&gt;(
+    &amp;self,
+    scope: Sc,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>
+) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;<span class="where fmt-newline">where
+    S: 'a + <a class="trait" href="../datatype/trait.PartitionedBuffer.html" title="trait mpi::datatype::PartitionedBuffer">PartitionedBuffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: 'a + <a class="trait" href="../datatype/trait.PartitionedBufferMut.html" title="trait mpi::datatype::PartitionedBufferMut">PartitionedBufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Initiate non-blocking all-to-all communication.</p>
+<h5 id="standard-sections-13"><a href="#standard-sections-13">Standard section(s)</a></h5>
+<p>5.12.6</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_all_reduce_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#505-536">source</a><h4 class="code-header">fn <a href="#method.immediate_all_reduce_into" class="fn">immediate_all_reduce_into</a>&lt;'a, S, R, O, Sc&gt;(
+    &amp;self,
+    scope: Sc,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>,
+    op: O
+) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;<span class="where fmt-newline">where
+    S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: 'a + <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,
+    Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Initiates a non-blocking global reduction under the operation <code>op</code> of the input data in
+<code>sendbuf</code> and stores the result in <code>recvbuf</code> on all processes.</p>
+<h5 id="examples-12"><a href="#examples-12">Examples</a></h5>
+<p>See <code>examples/immediate_reduce.rs</code></p>
+<h5 id="standard-sections-14"><a href="#standard-sections-14">Standard section(s)</a></h5>
+<p>5.12.8</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_reduce_scatter_block_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#549-581">source</a><h4 class="code-header">fn <a href="#method.immediate_reduce_scatter_block_into" class="fn">immediate_reduce_scatter_block_into</a>&lt;'a, S, R, O, Sc&gt;(
+    &amp;self,
+    scope: Sc,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>,
+    op: O
+) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;<span class="where fmt-newline">where
+    S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: 'a + <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,
+    Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Initiates a non-blocking element-wise global reduction under the operation <code>op</code> of the
+input data in <code>sendbuf</code> and scatters the result into equal sized blocks in the receive
+buffers on all processes.</p>
+<h5 id="examples-13"><a href="#examples-13">Examples</a></h5>
+<p>See <code>examples/immediate_reduce.rs</code></p>
+<h5 id="standard-sections-15"><a href="#standard-sections-15">Standard section(s)</a></h5>
+<p>5.12.9</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_scan_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#593-624">source</a><h4 class="code-header">fn <a href="#method.immediate_scan_into" class="fn">immediate_scan_into</a>&lt;'a, S, R, O, Sc&gt;(
+    &amp;self,
+    scope: Sc,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>,
+    op: O
+) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;<span class="where fmt-newline">where
+    S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: 'a + <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,
+    Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Initiates a non-blocking global inclusive prefix reduction of the data in <code>sendbuf</code> into
+<code>recvbuf</code> under operation <code>op</code>.</p>
+<h5 id="examples-14"><a href="#examples-14">Examples</a></h5>
+<p>See <code>examples/immediate_scan.rs</code></p>
+<h5 id="standard-sections-16"><a href="#standard-sections-16">Standard section(s)</a></h5>
+<p>5.12.11</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.immediate_exclusive_scan_into" class="method"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#636-667">source</a><h4 class="code-header">fn <a href="#method.immediate_exclusive_scan_into" class="fn">immediate_exclusive_scan_into</a>&lt;'a, S, R, O, Sc&gt;(
+    &amp;self,
+    scope: Sc,
+    sendbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a S</a>,
+    recvbuf: <a class="primitive" href="https://doc.rust-lang.org/1.72.1/std/primitive.reference.html">&amp;'a mut R</a>,
+    op: O
+) -&gt; <a class="struct" href="../request/struct.Request.html" title="struct mpi::request::Request">Request</a>&lt;'a, R, Sc&gt;<span class="where fmt-newline">where
+    S: 'a + <a class="trait" href="../datatype/trait.Buffer.html" title="trait mpi::datatype::Buffer">Buffer</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    R: 'a + <a class="trait" href="../datatype/trait.BufferMut.html" title="trait mpi::datatype::BufferMut">BufferMut</a> + ?<a class="trait" href="https://doc.rust-lang.org/1.72.1/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: 'a + <a class="trait" href="trait.Operation.html" title="trait mpi::collective::Operation">Operation</a>,
+    Sc: <a class="trait" href="../request/trait.Scope.html" title="trait mpi::request::Scope">Scope</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Initiates a non-blocking global exclusive prefix reduction of the data in <code>sendbuf</code> into
+<code>recvbuf</code> under operation <code>op</code>.</p>
+<h5 id="examples-15"><a href="#examples-15">Examples</a></h5>
+<p>See <code>examples/immediate_scan.rs</code></p>
+<h5 id="standard-sections-17"><a href="#standard-sections-17">Standard section(s)</a></h5>
+<p>5.12.12</p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-CommunicatorCollectives-for-C" class="impl"><a class="srclink rightside" href="../../src/mpi/collective.rs.html#670">source</a><a href="#impl-CommunicatorCollectives-for-C" class="anchor">§</a><h3 class="code-header">impl&lt;C: <a class="trait" href="../topology/trait.Communicator.html" title="trait mpi::topology::Communicator">Communicator</a>&gt; <a class="trait" href="trait.CommunicatorCollectives.html" title="trait mpi::collective::CommunicatorCollectives">CommunicatorCollectives</a> for C</h3></section></div><script src="../../implementors/mpi/collective/trait.CommunicatorCollectives.js" async></script></section></div></main></body></html>
