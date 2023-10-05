@@ -1,0 +1,37 @@
+setting dmc scratch directory
+ 
+============================================================
+=====         Summary of your script job               =====
+============================================================
+  The script file is: test.sh
+  The time limit is 00:01:00 HH:MM:SS.
+  The target directory is: /home/usaclsc0052/mzWork/Conc-Work/Homework-4/src
+  The working directory is:  /scratch-local/usaclsc0052.testshSCRIPT.1836844
+  The memory limit is: 4gb
+  The job will start running after: 2023-10-05T10:33:01
+  Job Name: testshSCRIPT
+  Virtual queue: small
+  QOS: --qos=small
+  Constraints: --constraint=dmc
+  Using  4  cores on master node  dmc47
+  Node list:  dmc47
+  Nodes:  dmc47 dmc47 dmc47 dmc47
+  Command typed:
+/apps/scripts/run_script_mpi test.sh     
+  Queue submit command:
+sbatch --qos=small -J testshSCRIPT --begin=2023-10-05T10:33:01 --requeue --mail-user=mvz2021@jagmail.southalabama.edu -o testshSCRIPT.o1836844 -t 00:01:00 -n 4 --mem-per-cpu=1000mb --constraint=dmc 
+ 
+Process 0 array: [69.94669975914589, 15.671109359543456, 83.34260329030212, 51.63502031109819, 95.56105059498252]
+Process 1 array: [48.94667944759286, 8.295486953406561, 98.92183502261351, 39.05457909893071, 93.25121212960825]
+Process 2 array: [32.526489208690634, 53.488740718408835, 13.77506871391654, 52.817124192383844, 1.5698249547892562]
+Process 3 array: [0.040433837985975885, 56.331258930927945, 73.41161785157387, 22.673805441184626, 23.409456085850277]
+Selected process: 2
+Process 0 array (after avg adjustment): [23.213194963999094, -31.062395435603335, 36.60909849515533, 4.901515515951395, 48.827545799835725]
+Process 1 array (after avg adjustment): [2.213174652446064, -38.43801784174023, 52.188330227466714, -7.6789256962160835, 46.517707334461456]
+Process 2 array (after avg adjustment): [79.25999400383742, 100.22224551355563, 60.50857350906333, 99.55062898753064, 48.30332974993605]
+Process 3 array (after avg adjustment): [-46.69307095716081, 9.597754135781152, 26.678113056427073, -24.059699353962166, -23.324048709296516]
+Process 0 array (after max adjustment): [75.40152519146581, 21.12593479186338, 88.79742872262204, 57.08984574341811, 101.01587602730244]
+Process 1 array (after max adjustment): [102.4354201660017, 61.7842276718154, 152.41057574102234, 92.54331981733955, 146.73995284801708]
+Process 2 array (after max adjustment): [52.58188094741035, 73.54413245712857, 33.83046045263626, 72.87251593110358, 21.625216693508975]
+Process 3 array (after max adjustment): [2.134474842674912, 58.42529993561688, 75.5056588562628, 24.76784644587356, 25.50349709053921]
+Minimum value of all elements: 5.134474842674912
