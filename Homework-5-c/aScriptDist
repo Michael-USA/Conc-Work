@@ -1,0 +1,2 @@
+#!/bin/sh
+./zDerive train100Inst2Feat.txt test100Inst2Feat.txt
