@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["send_receive","send_receive_into","send_receive_into_with_tags","send_receive_replace_into","send_receive_replace_into_with_tags","send_receive_with_tags"],"mod":["traits"],"struct":["Message","ReceiveFuture","Status"],"trait":["Destination","MatchedReceiveVec","Source"]};

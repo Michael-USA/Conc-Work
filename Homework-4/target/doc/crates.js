@@ -1,1 +1,0 @@
-window.ALL_CRATES = ["Homework_4","cfg_if","conv","custom_derive","getrandom","libc","libffi","libffi_sys","memoffset","mpi","mpi_sys","once_cell","ppv_lite86","proc_macro2","quote","rand","rand_chacha","rand_core","smallvec","syn","thiserror","thiserror_impl","unicode_ident"];
