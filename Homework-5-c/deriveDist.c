@@ -1,4 +1,4 @@
-//By Ryan Benton
+//By Michael Zuppardo, J00694103
 
 //Libraries that are needed
 #include <stdio.h>
@@ -7,6 +7,8 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <math.h>
+#include <time.h>
+#include <mpi.h>
 
 //Decided we won't have rows in a file greater than 1000
 //characters
@@ -353,76 +355,95 @@ bool isAnInt(char *aString)
   return true;
 }
 
-//Main function
 int main(int argc, char **argv)
 {
-   //Check number of args -- commandline args should include
-   //the training and test files
-   if (argc < 3)
-   {
-      printf("Too few arguements.\n");
-      printf("Should be: %s trainFileName testFileName\n", argv[0]);
-      return -1;
-   }
+    MPI_Init(&argc, &argv);  // Initialize MPI environment
+    
+    int rank, size;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);  // Get the rank (ID) of the process
+    MPI_Comm_size(MPI_COMM_WORLD, &size);  // Get the total number of processes
+    
+    time_t start, end;
+    double total_time;
+    
+    if(rank == 0)
+        time(&start);
 
-   //these are used to calculate time.
-   time_t start, end;
-   double total_time;
-   time(&start);
+    int i, numFeat = 0, numTrain = 0, numTest = 0, tempFeat = 0;
+    double **trainData = NULL;
+    double **testData = NULL;
+    double **subTestData = NULL;
+    int *theMatch = NULL;
+    double *theDist = NULL;
 
-   // an iterator
-   int i;
+    if (rank == 0)  // Master process reads data
+    {
+        if (argc < 3)
+        {
+            printf("Too few arguments.\n");
+            MPI_Abort(MPI_COMM_WORLD, -1);
+        }
 
-   //The number of features and the number of elements in the training and test data
-   int numFeat, numTrain, numTest, tempFeat;
+        loadData(&trainData, &numTrain, &numFeat, argv[1]);
+        loadData(&testData, &numTest, &tempFeat, argv[2]);
+    }
+    
+    // Broadcast numFeat, numTrain, and numTest to all processes
+    MPI_Bcast(&numFeat, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&numTrain, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&numTest, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-   //Init the ints to 0
-   numFeat = numTrain = numTest = tempFeat = 0;
-  
-   double **trainData = NULL;
-   double **testData = NULL;
- 
-   //need closted match array and the distance of closest match
-   int *theMatch = NULL;
-   double *theDist = NULL;
+    // Initialize data arrays for all processes
+    if (rank != 0)
+    {
+        initDataArrays(&trainData, numTrain, numFeat);
+        initDataArrays(&testData, numTest, numFeat);
+    }
+    
+    // Broadcast training data to all processes
+    for (i = 0; i < numTrain; ++i)
+    {
+        MPI_Bcast(trainData[i], numFeat, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    }
 
-   //The strings to hold the file names
-   char trainFileName[MAXSTRINGSIZE];
-   char testFileName[MAXSTRINGSIZE];
+    // Scatter test data to all processes
+    int chunk_size = numTest / size;
+    initDataArrays(&subTestData, chunk_size, numFeat);
+    for (i = 0; i < chunk_size; ++i)
+    {
+        MPI_Scatter(testData[i], numFeat, MPI_DOUBLE, subTestData[i], numFeat, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    }
 
-   //clear out the strings of random noise
-   memset(trainFileName, '\0', sizeof(trainFileName));
-   memset(testFileName, '\0', sizeof(testFileName));
- 
-   //copy the file names -- no error checking
-   strcpy(trainFileName, argv[1]);
-   strcpy(testFileName, argv[2]);
+    // Initialize match and distance arrays for subsets
+    int *subTheMatch = NULL;
+    double *subTheDist = NULL;
+    initMatchAndDist(chunk_size, &subTheMatch, &subTheDist);
 
-   //Read in the training set and the test set
-   loadData(&trainData, &numTrain, &numFeat, trainFileName);
-   loadData(&testData, &numTest, &tempFeat, testFileName);
+    // Compute closest matches for subset of test data
+    getClosest(trainData, subTestData, numTrain, chunk_size, numFeat, subTheMatch, subTheDist);
 
-   //Done with the initial data sending.  Time for local cals
-   //init theMatch and theDist
-   initMatchAndDist(numTest, &theMatch, &theDist);
+    // Gather results back to the root process
+    if (rank == 0)
+    {
+        initMatchAndDist(numTest, &theMatch, &theDist);
+    }
+    MPI_Gather(subTheMatch, chunk_size, MPI_INT, theMatch, chunk_size, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Gather(subTheDist, chunk_size, MPI_DOUBLE, theDist, chunk_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-   //find the closest matches for the testData
-   getClosest(trainData, testData, numTrain, numTest, numFeat, theMatch, theDist);
+    // Print results and finalize only on the root process
+    if (rank == 0)
+    {
+        for (i = 0; i < numTest; ++i)
+        {
+            printf("Test %d is closest to %d, dist: %lf\n", i, theMatch[i], theDist[i]);
+	}
+	
+	time(&end);
+	total_time = difftime(end, start);
+	printf("The time needed was %.8lf\n", total_time);
+    }
 
-   //Print results 
-   for (i = 0; i < numTest; i++)
-   {
-      printf("Test %d is closest to %d, dist: %lf\n", i, theMatch[i], theDist[i]);
-   }
+    MPI_Finalize();
 
-   time(&end);
-   total_time = end - start;
-   printf("The time needed was %.8lf\n", total_time);
-
-   //Then, clean up.
-   freeDataArrays(&trainData, numTrain, numFeat);
-   freeDataArrays(&testData, numTest, numFeat);
-   free(theMatch);
-   free(theDist);
-   return 0;
+    return 0;
 }

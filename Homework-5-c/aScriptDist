@@ -1,2 +1,5 @@
 #!/bin/sh
-./zDerive train100Inst2Feat.txt test100Inst2Feat.txt
+
+./zDerive trainMid.txt testMid.txt
+
+# ./zDerive train100Inst2Feat.txt test100Inst2Feat.txt
