@@ -1,0 +1,26 @@
+setting dmc scratch directory
+ 
+============================================================
+=====         Summary of your script job               =====
+============================================================
+  The script file is: scriptOpenMP
+  The time limit is 60:00:00 HH:MM:SS.
+  The target directory is: /home/usaclsc0052/mzWork/Conc-Work/Homework-6-c
+  The working directory is:  /scratch-local/usaclsc0052.scriptOpenMPSCRIPT.1931825
+  The memory limit is: 1gb
+  The job will start running after: 2023-11-16T09:51:22
+  Job Name: scriptOpenMPSCRIPT
+  Virtual queue: small
+  QOS: --qos=small
+  Constraints: --constraint=dmc
+  Using  1  cores on master node  dmc201
+  Node list:  dmc201
+  Nodes:  dmc201
+  Command typed:
+/apps/scripts/run_script scriptOpenMP     
+  Queue submit command:
+sbatch --qos=small -J scriptOpenMPSCRIPT --begin=2023-11-16T09:51:22 --requeue --mail-user=mvz2021@jagmail.southalabama.edu -o scriptOpenMPSCRIPT.o1931825 -t 60:00:00 -N 1-1 -n 1 --mem-per-cpu=1000mb --constraint=dmc 
+Hello from thread 0
+Hello from thread 1
+Hello from thread 2
+Hello from thread 3

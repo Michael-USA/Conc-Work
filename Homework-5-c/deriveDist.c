@@ -443,6 +443,11 @@ int main(int argc, char **argv)
 	printf("The time needed was %.8lf\n", total_time);
     }
 
+    freeDataArrays(&trainData, numTrain, numFeat);
+    freeDataArrays(&testData, numTest, numFeat);
+    free(theMatch);
+    free(theDist);
+
     MPI_Finalize();
 
     return 0;

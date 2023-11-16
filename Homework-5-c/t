@@ -1,0 +1,10 @@
+Queue                     Wall Time      Mem  # Cores
+------------------------ ---------- -------- --------
+express                     4:00:00     16gb      1-4
+small                      60:00:00      4gb      1-8
+medium                    150:00:00     16gb     1-16
+large                     360:00:00    120gb    1-128
+bigmem                    360:00:00  130-500gb   1-32
+benchmark                  24:00:00    120gb     1-36
+class                      12:00:00     64gb     1-60
+node			 9999:99:99  9999999gb	 1bil

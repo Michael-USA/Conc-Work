@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# script to run openmp_test via the queue system.
+#
+export OMP_NUM_THREADS=15
+./helloWorldOMP

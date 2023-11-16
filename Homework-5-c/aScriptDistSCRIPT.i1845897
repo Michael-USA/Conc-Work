@@ -1,0 +1,19 @@
+ 
+============================================================
+=====     Queued job information at submit time        =====
+============================================================
+  The submitted file is: aScriptDist
+  The time limit is 00:10:00 HH:MM:SS.
+  The target directory is: /home/usaclsc0052/mzWork/Conc-Work/Homework-5-c
+  The memory limit is: 4gb
+  The job will start running after: 2023-10-24T10:32:31
+  Job Name: aScriptDistSCRIPT
+  Virtual queue: small
+  QOS: --qos=small
+  Constraints: --constraint=dmc
+  Command typed:
+/apps/scripts/run_script_mpi aScriptDist     
+  Queue submit command:
+sbatch --qos=small -J aScriptDistSCRIPT --begin=2023-10-24T10:32:31 --requeue --mail-user=mvz2021@jagmail.southalabama.edu -o aScriptDistSCRIPT.o$SLURM_JOB_ID -t 00:10:00 -n 4 --mem-per-cpu=1000mb --constraint=dmc 
+  Job number: 1845897
+ 
