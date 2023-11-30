@@ -1,0 +1,19 @@
+ 
+============================================================
+=====     Queued job information at submit time        =====
+============================================================
+  The submitted file is: original.sh
+  The time limit is 00:10:00 HH:MM:SS.
+  The target directory is: /home/usaclsc0052/mzWork/Conc-Work/Homework-7
+  The memory limit is: 1gb
+  The job will start running after: 2023-11-30T09:40:20
+  Job Name: originalshSCRIPT
+  Virtual queue: small
+  QOS: --qos=small
+  Constraints: --constraint=dmc
+  Command typed:
+/apps/scripts/run_script original.sh     
+  Queue submit command:
+sbatch --qos=small -J originalshSCRIPT --begin=2023-11-30T09:40:20 --requeue --mail-user=mvz2021@jagmail.southalabama.edu -o originalshSCRIPT.o$SLURM_JOB_ID -t 00:10:00 -N 1-1 -n 1 --mem-per-cpu=1000mb --constraint=dmc 
+  Job number: 1939581
+ 
